@@ -13,3 +13,15 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+def configure!
+  Syncterrifier.configure do |config|
+    config.api_key = '12345678'
+  end
+end
+
+RSpec::Matchers.define :have_many do |association|
+  match do |model|
+    model.send(:associations).include?(association.to_s)
+  end
+end
