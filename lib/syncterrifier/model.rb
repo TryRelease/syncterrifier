@@ -9,10 +9,18 @@ class Syncterrifier::Model
   # private_class_method :new
 
   class << self
-    attr_reader :url, :associations
+    attr_reader :url, :associations, :scope_name, :required_params
 
     def endpoint(url)
       @url ||= url
+    end
+
+    def required_params(params)
+      @required_params = params
+    end
+
+    def scope(scope_name)
+      @scope_name ||= scope_name
     end
 
     def has_many(association)
@@ -41,7 +49,9 @@ class Syncterrifier::Model
     end
 
     def all
-      collection = client.get(url).map do |data|
+      resp = client.get(url)
+
+      collection = client.get(url)[(scope_name || url).to_s].map do |data|
         self.new(data)
       end
 
@@ -56,10 +66,18 @@ class Syncterrifier::Model
       self.new(client.get("#{ url }/#{ id }"))
     end
 
-    def create(data)
-      data.deep_transform_keys! { |x| x.to_s.camelize(:lower) }
+    def validate_data!(data)
+      # TODO: implement this or leave to the API to validate?
+      # if required_params
+      #   required_params.each do |name, type|
+      #   end
+      # end
+    end
 
-      self.new(client.post("#{ url }", data))
+    def create(idempotency_key: nil, **data)
+      validate_data!(data)
+
+      self.new(client.post("#{ url }", data, idempotency_key: idempotency_key))
     end
   end
 
@@ -89,7 +107,7 @@ class Syncterrifier::Model
     association_class = "Paylocifier::#{ association_name.to_s.singularize.capitalize }".constantize
     association_path  = "#{ uri }/#{ association_name }"
 
-    collection = client.get(association_path).map do |data|
+    collection = client.get(association_path)[(scope_name || url).to_s].map do |data|
       association_class.new(data)
     end
 
@@ -121,7 +139,7 @@ class Syncterrifier::Model
   private
 
   def method_missing(method, *args)
-    return data.send(method, *args)   if data.respond_to?(method)
+    return data.send(method, *args) if data.respond_to?(method)
     return association(method) if Array(associations).include?(method.to_s)
 
     super

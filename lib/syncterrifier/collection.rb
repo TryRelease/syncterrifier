@@ -34,8 +34,6 @@ class Syncterrifier::Collection
   end
 
   def create(data)
-    data.deep_transform_keys! { |x| x.to_s.camelize(:lower) }
-
     url = self.path
     if model_class == Syncterrifier::Deduction
       data = { deduction: data }

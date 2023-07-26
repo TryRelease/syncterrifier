@@ -1,0 +1,15 @@
+{
+    "ban_status": "ALLOWED",
+    "creation_time": "2023-07-17T22:23:04.735018Z",
+    "email": "me@bherms.com",
+    "first_name": "Bradley",
+    "has_accounts": true,
+    "id": "c23faf30-60e9-48bb-8b8b-16a060850fa6",
+    "is_customer": true,
+    "last_name": "Herman",
+    "last_updated_time": "2023-07-26T21:29:22.983408Z",
+    "phone_number": "+13173319718",
+    "status": "ACTIVE",
+    "tenant": "gzpqep_pnvndp",
+    "verification_status": "UNVERIFIED"
+}

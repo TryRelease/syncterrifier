@@ -7,7 +7,11 @@ require 'syncterrifier/client'
 
 require 'syncterrifier/model'
 require 'syncterrifier/collection'
-require 'syncterrifier/models/person'
+
+require 'syncterrifier/models/accounts/account'
+
+require 'syncterrifier/models/customers/person'
+require 'syncterrifier/models/customers/business'
 
 module Syncterrifier
   class Error < StandardError; end

@@ -8,8 +8,8 @@ class Syncterrifier::Client
     @config = Syncterrifier.config
   end
 
-  def post(url, data)
-    send_request(:post, url, data)
+  def post(url, data, idempotency_key: nil)
+    send_request(:post, url, data, idempotency_key: idempotency_key)
   end
 
   def put(url, data)
@@ -28,9 +28,10 @@ class Syncterrifier::Client
     parse_response(connection.delete(url.to_s))
   end
 
-  def send_request(method, url, data)
+  def send_request(method, url, data, idempotency_key: nil)
     parse_response(connection.send(method, url.to_s) do |req|
       req.body = data.to_json
+      req.headers["Idempotency-Key"] = idempotency_key
     end)
   end
 
@@ -38,10 +39,10 @@ class Syncterrifier::Client
 
   def connection
     @connection = Faraday.new(
-      url:      "",
+      url:      "https://api.synctera.com/v0/",
       headers:  {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer #{ token }"
+        'Authorization': "Bearer #{ config.api_key }"
       }
     )
   end
@@ -61,11 +62,19 @@ class Syncterrifier::Client
         data.deep_transform_keys!(&:underscore)
       end
     elsif resp.status == 400
-      messages = JSON.parse(resp.body).map { |item| "\t - #{ item['message'] } #{ item['options'] }" }
-      messages = messages.join("\n")
-      raise "#{ resp.status }:\n\n#{ messages }"
+      body = JSON.parse(resp.body)
+      raise "#{ resp.status }: #{body['title']}\n  => Detail: #{ body['detail'] }\n  => Type: #{body['type']}\n"
     else
-      raise "#{ resp.status } - #{ resp.reason_phrase }"
+      # {
+      #   "code": "IDEMPOTENCY_INVALID_REUSE",
+      #   "detail": "The request included an Idempotency-Key header which was already used for a different request: an Idempotency-Key must not be reused across different paths, methods or request payloads",
+      #   "status": 422,
+      #   "title": "Unprocessable Entity",
+      #   "type": "https://dev.synctera.com/errors/unprocessable-entity"
+      # }
+
+      body = JSON.parse(resp.body)
+      raise "#{ resp.status }: #{body['title']} - #{body['code']}\n  => Detail: #{ body['detail'] }\n  => Type: #{body['type']}\n"
     end
   end
 end

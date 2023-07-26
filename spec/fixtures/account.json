@@ -1,0 +1,37 @@
+{
+    "access_status": "ACTIVE",
+    "access_status_last_updated_time": "2023-07-26T21:24:01.670732Z",
+    "account_number": "101194757294981",
+    "account_number_masked": "101194*****4981",
+    "account_type": "CHECKING",
+    "balances": [
+        {
+            "balance": 0,
+            "type": "ACCOUNT_BALANCE"
+        },
+        {
+            "balance": 0,
+            "type": "AVAILABLE_BALANCE"
+        }
+    ],
+    "bank_routing": "064109549",
+    "creation_time": "2023-07-26T21:24:01.638271Z",
+    "currency": "USD",
+    "customer_ids": [
+        "c23faf30-60e9-48bb-8b8b-16a060850fa6"
+    ],
+    "customer_type": "PERSONAL",
+    "id": "8f6f7fb3-8b63-4d7e-b502-41df27638d6a",
+    "is_account_pool": false,
+    "is_ach_enabled": true,
+    "is_card_enabled": true,
+    "is_external_card_enabled": false,
+    "is_p2p_enabled": true,
+    "is_sar_enabled": false,
+    "is_security": false,
+    "is_wire_enabled": true,
+    "last_updated_time": "2023-07-26T21:24:01.638271Z",
+    "open_date": "2023-07-26",
+    "status": "RESTRICTED",
+    "tenant": "gzpqep_pnvndp"
+}
