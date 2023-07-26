@@ -44,7 +44,7 @@ class Syncterrifier::Business < Syncterrifier::Model
     ]
   )
 
-  def self.create(data, idempotency_key: nil)
+  def self.create(idempotency_key: nil, **data)
     data[:status]       = 'ACTIVE'  if !data.has_key?(:status)
     data[:is_customer]  = true      if !data.has_key?(:is_customer)
 
