@@ -1,6 +1,7 @@
 require 'active_support/inflector'
 require 'active_support/core_ext/hash'
 require 'hashie'
+require 'uri'
 
 require_relative 'collection'
 require_relative 'client'
@@ -48,17 +49,17 @@ class Syncterrifier::Model
       @client ||= Syncterrifier::Client.new
     end
 
-    def all
-      resp = client.get(url)
+    def all(**options)
+      uri = "#{url}#{options.keys.any? ? "?#{URI.encode_www_form(options)}" : ''}"
 
-      collection = client.get(url)[(scope_name || url).to_s].map do |data|
+      collection = client.get(uri)[(scope_name || url).to_s].map do |data|
         self.new(data)
       end
 
       Syncterrifier::Collection.new(
         data:           collection,
         model_class:    self.class,
-        path:           url,
+        path:           uri,
       )
     end
 

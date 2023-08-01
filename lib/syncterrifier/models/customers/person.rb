@@ -52,6 +52,6 @@ class Syncterrifier::Person < Syncterrifier::Model
     data[:status] = 'ACTIVE' if !data.has_key?(:status)
     data[:is_customer] = true if !data.has_key?(:is_customer)
 
-    super(data, idempotency_key: idempotency_key)
+    super(idempotency_key: idempotency_key, **data)
   end
 end
