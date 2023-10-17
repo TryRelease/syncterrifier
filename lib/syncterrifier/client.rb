@@ -39,7 +39,7 @@ class Syncterrifier::Client
 
   def connection
     @connection = Faraday.new(
-      url:      "https://api.synctera.com/v0/",
+      url:      config.host,
       headers:  {
         'Content-Type': 'application/json',
         'Authorization': "Bearer #{ config.api_key }"
