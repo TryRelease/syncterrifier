@@ -1,0 +1,349 @@
+{
+    "verification_status": "ACCEPTED",
+    "verifications": [
+        {
+            "creation_time": "2023-10-18T21:30:38.660052Z",
+            "details": [
+                {
+                    "description": "Addressrisk score represents low risk",
+                    "label": "Address",
+                    "result": "PASS",
+                    "vendor_code": "I720"
+                },
+                {
+                    "description": "Address is multi-unit or high rise",
+                    "label": "Address",
+                    "result": "PASS",
+                    "vendor_code": "I704"
+                },
+                {
+                    "description": "Address is residential",
+                    "label": "Address",
+                    "result": "PASS",
+                    "vendor_code": "I707"
+                },
+                {
+                    "description": "Address can be resolved to the individual",
+                    "label": "Address",
+                    "result": "PASS",
+                    "vendor_code": "I708"
+                },
+                {
+                    "description": "Address is correlated with the first name",
+                    "label": "Address",
+                    "result": "PASS",
+                    "vendor_code": "I709"
+                },
+                {
+                    "description": "Address is correlated with the last name",
+                    "label": "Address",
+                    "result": "PASS",
+                    "vendor_code": "I710"
+                },
+                {
+                    "description": "Email address is more than 2 years old",
+                    "label": "Email",
+                    "result": "PASS",
+                    "vendor_code": "I553"
+                },
+                {
+                    "description": "Emailrisk score represents low risk",
+                    "label": "Email",
+                    "result": "PASS",
+                    "vendor_code": "I520"
+                },
+                {
+                    "description": "Email is correlated with the last name",
+                    "label": "Email",
+                    "result": "PASS",
+                    "vendor_code": "I558"
+                },
+                {
+                    "description": "Email address can be resolved to the individual",
+                    "label": "Email",
+                    "result": "PASS",
+                    "vendor_code": "I556"
+                },
+                {
+                    "description": "Email is correlated with the first name",
+                    "label": "Email",
+                    "result": "PASS",
+                    "vendor_code": "I557"
+                },
+                {
+                    "description": "Social networks match",
+                    "label": "Fraud",
+                    "result": "PASS",
+                    "vendor_code": "I121"
+                },
+                {
+                    "description": "Online sources are representative of a broader digital footprint than just social networks",
+                    "label": "Fraud",
+                    "result": "PASS",
+                    "vendor_code": "I127"
+                },
+                {
+                    "description": "Full name, address, and SSN/ITIN can be resolved to the individual",
+                    "label": "Customer Identification Program (CIP)",
+                    "result": "PASS",
+                    "vendor_code": "I919"
+                },
+                {
+                    "description": "Phone number is associated with a major US carrier",
+                    "label": "Phone",
+                    "result": "PASS",
+                    "vendor_code": "I611"
+                },
+                {
+                    "description": "Phone number is a premium-rate line",
+                    "label": "Phone",
+                    "result": "PASS",
+                    "vendor_code": "I605"
+                },
+                {
+                    "description": "Phone number is consumer or residential",
+                    "label": "Phone",
+                    "result": "PASS",
+                    "vendor_code": "I609"
+                },
+                {
+                    "description": "Phone is correlated with the first name",
+                    "label": "Phone",
+                    "result": "PASS",
+                    "vendor_code": "I621"
+                },
+                {
+                    "description": "Phone is correlated with the last name",
+                    "label": "Phone",
+                    "result": "PASS",
+                    "vendor_code": "I622"
+                },
+                {
+                    "description": "Phone number can be resolved to the individual",
+                    "label": "Phone",
+                    "result": "PASS",
+                    "vendor_code": "I618"
+                }
+            ],
+            "id": "40eddfb5-bfb5-47aa-8315-c08305ae5c16",
+            "last_updated_time": "2023-10-18T21:30:38.660052Z",
+            "person_id": "12c03517-23f5-4df9-befc-f3a33bb053c3",
+            "result": "ACCEPTED",
+            "vendor_info": {
+                "content_type": "application/json",
+                "json": {
+                    "address_risk": {
+                        "reason_codes": [
+                            "I720",
+                            "I704",
+                            "I707"
+                        ],
+                        "score": "0.01"
+                    },
+                    "alert_list": {
+                        "matches": [],
+                        "reason_codes": []
+                    },
+                    "customer_profile": {
+                        "customer_user_id": "12c03517-23f5-4df9-befc-f3a33bb053c3",
+                        "user_id": "12c03517-23f5-4df9-befc-f3a33bb053c3"
+                    },
+                    "email_risk": {
+                        "reason_codes": [
+                            "I553",
+                            "I520"
+                        ],
+                        "score": "0.01"
+                    },
+                    "fraud": {
+                        "reason_codes": [
+                            "I553",
+                            "I121",
+                            "I127"
+                        ],
+                        "scores": [
+                            {
+                                "name": "sigma",
+                                "score": "0.025",
+                                "version": "3.0"
+                            }
+                        ]
+                    },
+                    "global_watchlist": {
+                        "matches": {},
+                        "reason_codes": [
+                            "I196"
+                        ]
+                    },
+                    "kyc": {
+                        "field_validations": {
+                            "city": "0.99",
+                            "dob": "0.99",
+                            "first_name": "0.99",
+                            "mobile_number": "0.99",
+                            "ssn": "0.99",
+                            "state": "0.99",
+                            "street_address": "0.99",
+                            "sur_name": "0.99",
+                            "zip": "0.99"
+                        },
+                        "reason_codes": [
+                            "I919"
+                        ]
+                    },
+                    "name_address_correlation": {
+                        "reason_codes": [
+                            "I708",
+                            "I709",
+                            "I710"
+                        ],
+                        "score": "0.99"
+                    },
+                    "name_email_correlation": {
+                        "reason_codes": [
+                            "I558",
+                            "I556",
+                            "I557"
+                        ],
+                        "score": "0.99"
+                    },
+                    "name_phone_correlation": {
+                        "reason_codes": [
+                            "I621",
+                            "I622",
+                            "I618"
+                        ],
+                        "score": "0.99"
+                    },
+                    "phone_risk": {
+                        "reason_codes": [
+                            "I611",
+                            "I605",
+                            "I609"
+                        ],
+                        "score": "0.01"
+                    },
+                    "reference_id": "37924cf0-6749-434c-90d9-446954b29b1c"
+                },
+                "vendor": "SOCURE"
+            },
+            "verification_time": "2023-10-18T21:30:38.657615Z",
+            "verification_type": "IDENTITY"
+        },
+        {
+            "creation_time": "2023-10-18T21:30:38.660052Z",
+            "details": [
+                {
+                    "description": "Global Watchlist sources selected are not correlated with the input identifiers",
+                    "label": "Watchlist",
+                    "result": "PASS",
+                    "vendor_code": "I196"
+                }
+            ],
+            "id": "b529d30d-ecdf-4318-a200-81514a43e938",
+            "last_updated_time": "2023-10-18T21:30:38.660052Z",
+            "person_id": "12c03517-23f5-4df9-befc-f3a33bb053c3",
+            "result": "ACCEPTED",
+            "vendor_info": {
+                "content_type": "application/json",
+                "json": {
+                    "address_risk": {
+                        "reason_codes": [
+                            "I720",
+                            "I704",
+                            "I707"
+                        ],
+                        "score": "0.01"
+                    },
+                    "alert_list": {
+                        "matches": [],
+                        "reason_codes": []
+                    },
+                    "customer_profile": {
+                        "customer_user_id": "12c03517-23f5-4df9-befc-f3a33bb053c3",
+                        "user_id": "12c03517-23f5-4df9-befc-f3a33bb053c3"
+                    },
+                    "email_risk": {
+                        "reason_codes": [
+                            "I553",
+                            "I520"
+                        ],
+                        "score": "0.01"
+                    },
+                    "fraud": {
+                        "reason_codes": [
+                            "I553",
+                            "I121",
+                            "I127"
+                        ],
+                        "scores": [
+                            {
+                                "name": "sigma",
+                                "score": "0.025",
+                                "version": "3.0"
+                            }
+                        ]
+                    },
+                    "global_watchlist": {
+                        "matches": {},
+                        "reason_codes": [
+                            "I196"
+                        ]
+                    },
+                    "kyc": {
+                        "field_validations": {
+                            "city": "0.99",
+                            "dob": "0.99",
+                            "first_name": "0.99",
+                            "mobile_number": "0.99",
+                            "ssn": "0.99",
+                            "state": "0.99",
+                            "street_address": "0.99",
+                            "sur_name": "0.99",
+                            "zip": "0.99"
+                        },
+                        "reason_codes": [
+                            "I919"
+                        ]
+                    },
+                    "name_address_correlation": {
+                        "reason_codes": [
+                            "I708",
+                            "I709",
+                            "I710"
+                        ],
+                        "score": "0.99"
+                    },
+                    "name_email_correlation": {
+                        "reason_codes": [
+                            "I558",
+                            "I556",
+                            "I557"
+                        ],
+                        "score": "0.99"
+                    },
+                    "name_phone_correlation": {
+                        "reason_codes": [
+                            "I621",
+                            "I622",
+                            "I618"
+                        ],
+                        "score": "0.99"
+                    },
+                    "phone_risk": {
+                        "reason_codes": [
+                            "I611",
+                            "I605",
+                            "I609"
+                        ],
+                        "score": "0.01"
+                    },
+                    "reference_id": "37924cf0-6749-434c-90d9-446954b29b1c"
+                },
+                "vendor": "SOCURE"
+            },
+            "verification_time": "2023-10-18T21:30:38.657939Z",
+            "verification_type": "WATCHLIST"
+        }
+    ]
+}
