@@ -29,6 +29,6 @@ class Syncterrifier::Verification < Syncterrifier::Model
   )
 
   def self.verify(idempotency_key: nil, **data)
-    client.post("#{ url }/verify", data, idempotency_key: idempotency_key)
+    Hashie::Mash.new(client.post("#{ url }/verify", data, idempotency_key: idempotency_key))
   end
 end
