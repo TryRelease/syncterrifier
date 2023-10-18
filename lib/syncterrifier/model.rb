@@ -90,6 +90,9 @@ class Syncterrifier::Model
   end
 
   def update(data)
+    validate_data!(data)
+
+    client.patch((update_path || uri), data)
   end
 
   def destroy
@@ -103,6 +106,7 @@ class Syncterrifier::Model
   protected
 
   def delete_path; end
+  def update_path; end
 
   def fetch_association(association_name)
     association_class = "Paylocifier::#{ association_name.to_s.singularize.capitalize }".constantize
