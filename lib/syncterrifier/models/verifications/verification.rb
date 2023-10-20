@@ -15,17 +15,6 @@ class Syncterrifier::Verification < Syncterrifier::Model
 
   required_params(
     customer_consent: :boolean,
-    status: [
-      'ACTIVE',
-      'DECEASED',
-      'DENIED',
-      'DORMANT',
-      'ESCHEAT',
-      'FROZEN',
-      'INACTIVE',
-      'PROSPECT',
-      'SANCTION'
-    ]
   )
 
   def self.verify(idempotency_key: nil, **data)
