@@ -12,6 +12,8 @@ require 'syncterrifier/models/accounts/account'
 
 require 'syncterrifier/models/customers/person'
 require 'syncterrifier/models/customers/business'
+require 'syncterrifier/models/customers/relationship'
+
 require 'syncterrifier/models/verifications/verification'
 
 module Syncterrifier
