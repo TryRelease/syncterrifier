@@ -1,4 +1,6 @@
-require_relative '../../model'
+# frozen_string_literal: true
+
+require_relative "../../model"
 
 <<-DOC
   Possible params:
@@ -15,9 +17,11 @@ class Syncterrifier::Verification < Syncterrifier::Model
 
   required_params(
     customer_consent: :boolean,
+    person_id: [:string, { unless: :business_id }],
+    business_id: [:string, { unless: :person_id }]
   )
 
   def self.verify(idempotency_key: nil, **data)
-    Hashie::Mash.new(client.post("#{ url }/verify", data, idempotency_key: idempotency_key))
+    Hashie::Mash.new(client.post("#{url}/verify", data, idempotency_key: idempotency_key))
   end
 end
