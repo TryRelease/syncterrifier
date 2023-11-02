@@ -76,7 +76,7 @@ class Syncterrifier::Account < Syncterrifier::Model
     balance.balance if balance
   end
 
-  def templates
+  def self.templates
     Hashie::Mash.new(client.get("#{url}/templates"))
   end
 end
