@@ -21,6 +21,7 @@ class Syncterrifier::Disclosure < Syncterrifier::Model
     event_type: :string,
     type: :string,
     person_id: [:string, { unless: :business_id }],
-    business_id: [:string, { unless: :person_id }]
+    business_id: [:string, { unless: :person_id }],
+    version: :string
   )
 end

@@ -1,4 +1,4 @@
-require_relative '../../model'
+require_relative "../../model"
 
 <<-DOC
   Possible params:
@@ -60,19 +60,23 @@ class Syncterrifier::Account < Syncterrifier::Model
   endpoint :accounts
 
   def available_balance
-    balance = balances.find { |balance| balance.type == 'AVAILABLE_BALANCE' }
+    balance = balances.find { |balance| balance.type == "AVAILABLE_BALANCE" }
     balance.balance if balance
   end
 
   def account_balance
-    balance = balances.find { |balance| balance.type == 'ACCOUNT_BALANCE' }
+    balance = balances.find { |balance| balance.type == "ACCOUNT_BALANCE" }
     balance.balance if balance
   end
 
   def accrued_interest_mtd
-    if account_type != 'LINE_OF_CREDIT'
-      balance = balances.find { |balance| balance.type == 'ACCRUED_INTEREST_MTD' }
-      balance.balance if balance
-    end
+    return unless account_type != "LINE_OF_CREDIT"
+
+    balance = balances.find { |balance| balance.type == "ACCRUED_INTEREST_MTD" }
+    balance.balance if balance
+  end
+
+  def templates
+    Hashie::Mash.new(client.get("#{url}/templates"))
   end
 end
