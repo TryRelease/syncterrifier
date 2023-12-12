@@ -15,6 +15,8 @@ require "syncterrifier/models/customers/business"
 require "syncterrifier/models/customers/relationship"
 require "syncterrifier/models/customers/disclosure"
 
+require "syncterrifier/models/transactions/internal_transfer"
+
 require "syncterrifier/models/verifications/verification"
 
 module Syncterrifier
