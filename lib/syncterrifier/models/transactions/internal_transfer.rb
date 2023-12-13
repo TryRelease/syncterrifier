@@ -16,7 +16,7 @@ require_relative '../../model'
     receiving_account_customer_id - string - customer id of the account to credit
     receiving_account_id - string uuid (required)
     tenant - string - tenant id
-    tenant - string (required) [
+    type - string (required) [
       ACCOUNT_TO_ACCOUNT
       ACCOUNT_TO_ACCOUNT_SWEEP
       ACH_CREDIT_SWEEP
