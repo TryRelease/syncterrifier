@@ -1,4 +1,5 @@
 require_relative "../../model"
+require_relative "../transactions/transaction"
 
 <<-DOC
   Possible params:
@@ -78,5 +79,25 @@ class Syncterrifier::Account < Syncterrifier::Model
 
   def self.templates
     Hashie::Mash.new(client.get("#{url}/templates"))
+  end
+
+  # include_child_transactions = boolean
+  # status = [string, string]
+  # from_date = 2023-10-01
+  # to_date = 2023-10-01
+  # type = string
+  # page_token = string
+  # account_id = string
+  # card_id = string
+  # reference_id = string
+  # limit = integer 100 or less
+  # subtype = string
+
+  def pending_transactions(**params)
+    Syncterrifier::Transaction.pending(**(params.merge(account_id: id)))
+  end
+
+  def posted_transactions(**params)
+    Syncterrifier::Transaction.posted(**(params.merge(account_id: id)))
   end
 end

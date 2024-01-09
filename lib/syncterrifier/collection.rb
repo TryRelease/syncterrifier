@@ -7,12 +7,13 @@ class Syncterrifier::Collection
 
   class NotFound < StandardError; end
 
-  attr_reader :data, :model_class, :path, :create_method
+  attr_reader :data, :model_class, :path, :create_method, :pagination
 
-  def initialize(data: [], model_class: nil, path: nil)
+  def initialize(data: [], model_class: nil, path: nil, pagination: nil)
     @data           = data
     @model_class    = model_class || @data.first&.class || raise(ArgumentError.new('Syncterrifier::Collection initialization requries model_class if data is empty'))
     @path           = path
+    @pagination     = pagination
   end
 
   def all

@@ -16,6 +16,7 @@ require "syncterrifier/models/customers/relationship"
 require "syncterrifier/models/customers/disclosure"
 
 require "syncterrifier/models/transactions/internal_transfer"
+require "syncterrifier/models/transactions/transaction"
 
 require "syncterrifier/models/accounts/external_account"
 

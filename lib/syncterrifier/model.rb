@@ -50,16 +50,32 @@ class Syncterrifier::Model
     end
 
     def all(**options)
-      uri = "#{url}#{options.keys.any? ? "?#{URI.encode_www_form(options)}" : ''}"
+      path = options.delete(:path)
+      uri = "#{url}#{path ? '/' + path : ''}#{options.keys.any? ? "?#{URI.encode_www_form(options)}" : ''}"
 
-      collection = client.get(uri)[(scope_name || url).to_s].map do |data|
+      response = client.get(uri)
+
+      if response.keys.include?('result')
+        response = response['result']
+      else
+        response = response[(scope_name || url).to_s]
+      end
+
+      collection = response.map do |data|
         self.new(data)
       end
+
+      limit = options[:limit] ? options[:limit].to_i : 100
+      limit = 100 if limit > 100
 
       Syncterrifier::Collection.new(
         data:           collection,
         model_class:    self.class,
         path:           uri,
+        pagination: !response.is_a?(Array) && response['next_page_token'] ? {
+          next_page_token:  response['next_page_token'],
+          limit:            limit,
+        } : nil
       )
     end
 
