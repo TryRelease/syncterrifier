@@ -12,5 +12,5 @@ require_relative "../../model"
 DOC
 
 class Syncterrifier::ExternalAccount < Syncterrifier::Model
-  endpoint 'external_accounts/add_vendor_accounts'
+  endpoint 'external_accounts'
 end
