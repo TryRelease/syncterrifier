@@ -71,7 +71,7 @@ class Syncterrifier::Webhook < Syncterrifier::Model
   required_params(
     # description: String,
     enabled_events: Array,
-    is_enabled: Boolean,
+    is_enabled: :boolean,
     # metadata: String,
     url: String,
   )
