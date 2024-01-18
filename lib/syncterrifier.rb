@@ -16,7 +16,8 @@ require "syncterrifier/models/customers/business"
 require "syncterrifier/models/customers/relationship"
 require "syncterrifier/models/customers/disclosure"
 
-require "syncterrifier/models/transactions/ach"
+require "syncterrifier/models/money_movement/ach"
+
 require "syncterrifier/models/transactions/internal_transfer"
 require "syncterrifier/models/transactions/transaction"
 
