@@ -9,6 +9,7 @@ require "syncterrifier/model"
 require "syncterrifier/collection"
 
 require "syncterrifier/models/accounts/account"
+require "syncterrifier/models/accounts/external_account"
 require "syncterrifier/models/accounts/statement"
 
 require "syncterrifier/models/customers/person"
@@ -18,10 +19,10 @@ require "syncterrifier/models/customers/disclosure"
 
 require "syncterrifier/models/money_movement/ach"
 
+require "syncterrifier/models/platform/webhook"
+
 require "syncterrifier/models/transactions/internal_transfer"
 require "syncterrifier/models/transactions/transaction"
-
-require "syncterrifier/models/accounts/external_account"
 
 require "syncterrifier/models/verifications/verification"
 
