@@ -13,4 +13,8 @@ DOC
 
 class Syncterrifier::ExternalAccount < Syncterrifier::Model
   endpoint 'external_accounts'
+
+  def self.add_vendor_account(idempotency_key: nil, **data)
+    Hashie::Mash.new(client.post("#{url}/add_vendor_accounts", data, idempotency_key: idempotency_key))
+  end
 end
