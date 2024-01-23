@@ -18,10 +18,10 @@ require "syncterrifier/models/customers/relationship"
 require "syncterrifier/models/customers/disclosure"
 
 require "syncterrifier/models/money_movement/ach"
+require "syncterrifier/models/money_movement/internal_transfer"
 
 require "syncterrifier/models/platform/webhook"
 
-require "syncterrifier/models/transactions/internal_transfer"
 require "syncterrifier/models/transactions/transaction"
 
 require "syncterrifier/models/verifications/verification"
