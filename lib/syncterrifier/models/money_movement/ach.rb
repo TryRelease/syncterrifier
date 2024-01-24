@@ -1,5 +1,6 @@
 class Syncterrifier::ACH < Syncterrifier::Model
   endpoint :ach
+  SIMULATE_ENDPOINT = "ach/transaction_simulations/receiving_transaction".freeze
 
   required_params(
     amount: Integer,
@@ -25,5 +26,14 @@ class Syncterrifier::ACH < Syncterrifier::Model
     data[:currency] = 'USD' if !data.has_key?(:currency)
 
     super(idempotency_key: idempotency_key, **data)
+  end
+
+  def self.simulate(account_number:, amount_cents:, dc_sign:, effective_date:)
+    client.post(SIMULATE_ENDPOINT, {
+      account_number:,
+      amount: amount_cents,
+      dc_sign:,
+      effective_date:,
+    }.compact)
   end
 end

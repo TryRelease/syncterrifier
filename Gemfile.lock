@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    syncterrifier (0.1.13)
+    syncterrifier (0.1.23)
 
 GEM
   remote: https://rubygems.org/
@@ -126,4 +126,4 @@ DEPENDENCIES
   syncterrifier!
 
 BUNDLED WITH
-   2.5.3
+   2.5.4
