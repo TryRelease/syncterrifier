@@ -7,8 +7,6 @@ require_relative 'collection'
 require_relative 'client'
 
 class Syncterrifier::Model
-  # private_class_method :new
-
   class << self
     attr_reader :url, :associations, :scope_name, :required_params
 
@@ -51,7 +49,8 @@ class Syncterrifier::Model
 
     def all(**options)
       path = options.delete(:path)
-      uri = "#{url}#{path ? '/' + path : ''}#{options.keys.any? ? "?#{URI.encode_www_form(options)}" : ''}"
+      base_url = options.delete(:base_url_override)
+      uri = "#{base_url || url}#{path ? '/' + path : ''}#{options.keys.any? ? "?#{URI.encode_www_form(options)}" : ''}"
 
       response = client.get(uri)
 
