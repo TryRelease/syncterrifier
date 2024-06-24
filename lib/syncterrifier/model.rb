@@ -61,12 +61,7 @@ class Syncterrifier::Model
       base_url = options.delete(:base_url_override)
       uri = "#{base_url || url}#{path ? '/' + path : ''}#{options.keys.any? ? "?#{URI.encode_www_form(options)}" : ''}"
 
-      puts uri
-
       response = client.get(uri)
-
-      puts response
-
       if response.keys.include?('result')
         response = response['result']
       else
