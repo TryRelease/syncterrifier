@@ -12,5 +12,5 @@ require_relative "../../model"
 DOC
 
 class Syncterrifier::AccountRelationship < Syncterrifier::Model
-  endpoint 'relationships'
+  endpoint 'accounts'
 end
