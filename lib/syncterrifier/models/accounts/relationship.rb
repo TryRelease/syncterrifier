@@ -15,6 +15,6 @@ class Syncterrifier::AccountRelationship < Syncterrifier::Model
   endpoint 'accounts'
 
   def all(account_id:, **options)
-    super(**options.merge(path: "#{account_id}/relationships"))
+    super(**options.except(:account_id).merge(path: "#{account_id}/relationships"))
   end
 end
