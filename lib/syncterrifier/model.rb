@@ -11,7 +11,16 @@ class Syncterrifier::Model
     attr_reader :url, :associations, :scope_name, :required_params
 
     def endpoint(url)
-      @url ||= url
+      @url ||= begin
+        url = url.to_s
+        if url.match(/{{/)
+          url.scan(/{{\w*}}/).each do |param|
+            url.gsub(param, self.send(param.gsub(/[{}]/, '').to_sym))
+          end
+        else
+          url
+        end
+      end
     end
 
     def required_params(params)

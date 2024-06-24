@@ -81,6 +81,10 @@ class Syncterrifier::Account < Syncterrifier::Model
     Hashie::Mash.new(client.get("#{url}/templates"))
   end
 
+  def statements
+    Syncterrifier::Statement.all(base_url_override: "accounts/#{id}", path: "statements")
+  end
+
   # include_child_transactions = boolean
   # status = [string, string]
   # from_date = 2023-10-01
