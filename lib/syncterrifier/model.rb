@@ -65,6 +65,8 @@ class Syncterrifier::Model
 
       response = client.get(uri)
 
+      puts response
+
       if response.keys.include?('result')
         response = response['result']
       else

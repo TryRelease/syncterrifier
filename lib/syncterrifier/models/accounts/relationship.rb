@@ -13,4 +13,8 @@ DOC
 
 class Syncterrifier::AccountRelationship < Syncterrifier::Model
   endpoint 'accounts'
+
+  def all(account_id:, **options)
+    super(**options.merge(path: "#{account_id}/relationships"))
+  end
 end
