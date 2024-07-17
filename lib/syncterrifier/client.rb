@@ -8,28 +8,28 @@ class Syncterrifier::Client
     @config = Syncterrifier.config
   end
 
-  def post(url, data, idempotency_key: nil)
-    send_request(:post, url, data, idempotency_key: idempotency_key)
+  def post(url, data, idempotency_key: nil, use_v1: false)
+    send_request(:post, url, data, idempotency_key: idempotency_key, use_v1: use_v1)
   end
 
-  def put(url, data)
-    send_request(:put, url, data)
+  def put(url, data, use_v1: false)
+    send_request(:put, url, data, use_v1: use_v1)
   end
 
-  def patch(url, data)
-    send_request(:patch, url, data)
+  def patch(url, data, use_v1: false)
+    send_request(:patch, url, data, use_v1: use_v1)
   end
 
-  def get(url)
-    parse_response(connection.get(url.to_s))
+  def get(url, use_v1: false)
+    parse_response((use_v1 ? v1_connection : connection).get(url.to_s))
   end
 
-  def delete(url)
-    parse_response(connection.delete(url.to_s))
+  def delete(url, use_v1: false)
+    parse_response((use_v1 ? v1_connection : connection).delete(url.to_s))
   end
 
-  def send_request(method, url, data, idempotency_key: nil)
-    parse_response(connection.send(method, url.to_s) do |req|
+  def send_request(method, url, data, idempotency_key: nil, use_v1: use_v1)
+    parse_response((use_v1 ? v1_connection : connection).send(method, url.to_s) do |req|
       req.body = data.to_json
       req.headers["Idempotency-Key"] = idempotency_key
     end)
@@ -38,8 +38,18 @@ class Syncterrifier::Client
   private
 
   def connection
-    @connection = Faraday.new(
+    @connection ||= Faraday.new(
       url:      config.host,
+      headers:  {
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer #{ config.api_key }"
+      }
+    )
+  end
+
+  def v1_connection
+    @v1_connection ||= Faraday.new(
+      url:      config.host.gsub("v0", "v1"),
       headers:  {
         'Content-Type': 'application/json',
         'Authorization': "Bearer #{ config.api_key }"

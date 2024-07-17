@@ -8,7 +8,11 @@ require_relative 'client'
 
 class Syncterrifier::Model
   class << self
-    attr_reader :url, :associations, :scope_name, :required_params
+    attr_reader :url, :associations, :scope_name, :required_params, :use_v1
+
+    def uses_v1!
+      @use_v1 = true
+    end
 
     def endpoint(url)
       @url ||= begin
@@ -61,7 +65,7 @@ class Syncterrifier::Model
       base_url = options.delete(:base_url_override)
       uri = "#{base_url || url}#{path ? '/' + path : ''}#{options.keys.any? ? "?#{URI.encode_www_form(options)}" : ''}"
 
-      response = client.get(uri)
+      response = client.get(uri, use_v1: use_v1)
       if response.keys.include?('result')
         response = response['result']
       else
@@ -87,7 +91,7 @@ class Syncterrifier::Model
     end
 
     def find(id)
-      self.new(client.get("#{ url }/#{ id }"))
+      self.new(client.get("#{ url }/#{ id }", use_v1: use_v1))
     end
 
     def validate_data!(data)
@@ -101,7 +105,7 @@ class Syncterrifier::Model
     def create(idempotency_key: nil, **data)
       validate_data!(data)
 
-      self.new(client.post("#{ url }", data, idempotency_key: idempotency_key))
+      self.new(client.post("#{ url }", data, idempotency_key: idempotency_key, use_v1: use_v1))
     end
   end
 
@@ -115,11 +119,11 @@ class Syncterrifier::Model
   def update(data)
     validate_data!(data)
 
-    client.patch((update_path || uri), data)
+    client.patch((update_path || uri), data, use_v1: use_v1)
   end
 
   def destroy
-    client.delete(delete_path || uri)
+    client.delete(delete_path || uri, use_v1: use_v1)
   end
 
   def uri
@@ -135,7 +139,7 @@ class Syncterrifier::Model
     association_class = "Paylocifier::#{ association_name.to_s.singularize.capitalize }".constantize
     association_path  = "#{ uri }/#{ association_name }"
 
-    collection = client.get(association_path)[(scope_name || url).to_s].map do |data|
+    collection = client.get(association_path, use_v1: use_v1)[(scope_name || url).to_s].map do |data|
       association_class.new(data)
     end
 
@@ -162,6 +166,7 @@ class Syncterrifier::Model
 
   def client; self.class.client; end
   def url; self.class.url; end
+  def use_v1; self.class.use_v1; end
   def associations; self.class.associations; end
 
   private

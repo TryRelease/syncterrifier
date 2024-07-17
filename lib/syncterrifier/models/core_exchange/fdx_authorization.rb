@@ -3,6 +3,8 @@ require_relative '../../../uuid_validator.rb'
 class Syncterrifier::FdxAuthRequest < Syncterrifier::Model
   endpoint :fdx_auth_requests
 
+  uses_v1!
+
   def self.authorize(customer_id:, auth_request_id:, status:)
     validate_data!(customer_id:, auth_request_id:, status:)
     self.new(client.post("fdx_auth_requests/authorize", {
