@@ -5,7 +5,11 @@ class Syncterrifier::FdxAuthRequest < Syncterrifier::Model
 
   def self.authorize(customer_id:, auth_request_id:, status:)
     validate_data!(customer_id:, auth_request_id:, status:)
-    self.new(client.post("fdx_auth_requests/authorize", data))
+    self.new(client.post("fdx_auth_requests/authorize", {
+      customer_id: customer_id,
+      auth_request_id: auth_request_id,
+      status: status
+    }))
   end
 
   def self.validate_data!(customer_id:, auth_request_id:, status:)
