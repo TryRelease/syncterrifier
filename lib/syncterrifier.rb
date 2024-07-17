@@ -13,6 +13,8 @@ require "syncterrifier/models/accounts/external_account"
 require "syncterrifier/models/accounts/relationship"
 require "syncterrifier/models/accounts/statement"
 
+require "syncterrifier/models/core_exchange/fdx_authorization"
+
 require "syncterrifier/models/customers/person"
 require "syncterrifier/models/customers/business"
 require "syncterrifier/models/customers/relationship"
