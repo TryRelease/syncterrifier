@@ -1,4 +1,4 @@
-require 'syncterrifier/uuid_validator'
+require '../../../uuid_validator.rb'
 
 class Syncterrifier::FdxAuthRequest < Syncterrifier::Model
   endpoint :fdx_auth_requests
