@@ -11,7 +11,7 @@ class Syncterrifier::FdxAuthRequest < Syncterrifier::Model
       customer_id: customer_id,
       auth_request_id: auth_request_id,
       status: status
-    }))
+    }, use_v1: true))
   end
 
   def self.validate_data!(customer_id:, auth_request_id:, status:)
