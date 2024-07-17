@@ -28,7 +28,7 @@ class Syncterrifier::Client
     parse_response((use_v1 ? v1_connection : connection).delete(url.to_s))
   end
 
-  def send_request(method, url, data, idempotency_key: nil, use_v1: use_v1)
+  def send_request(method, url, data, idempotency_key: nil, use_v1: false)
     parse_response((use_v1 ? v1_connection : connection).send(method, url.to_s) do |req|
       req.body = data.to_json
       req.headers["Idempotency-Key"] = idempotency_key
