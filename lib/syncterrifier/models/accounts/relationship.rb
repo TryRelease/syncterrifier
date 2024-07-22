@@ -27,4 +27,8 @@ class Syncterrifier::AccountRelationship < Syncterrifier::Model
   def destroy
     client.delete("accounts/#{ account_id }/relationships/#{ id }")
   end
+
+  def update(data)
+    client.put("accounts/#{ account_id }/relationships/#{ id }", data, use_v1: false)
+  end
 end
