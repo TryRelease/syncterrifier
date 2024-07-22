@@ -23,4 +23,8 @@ class Syncterrifier::AccountRelationship < Syncterrifier::Model
   def self.create(account_id:, idempotency_key: nil, **data)
     self.new(client.post("accounts/#{ account_id }/relationships", data, idempotency_key: idempotency_key))
   end
+
+  def destroy
+    client.delete("accounts/#{ account_id }/relationships/#{ id }")
+  end
 end
