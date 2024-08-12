@@ -17,4 +17,8 @@ class Syncterrifier::Wire < Syncterrifier::Model
 
     super(idempotency_key: idempotency_key, **data)
   end
+
+  def cancel!
+    update(status: 'CANCELED')
+  end
 end
