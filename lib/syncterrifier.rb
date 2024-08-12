@@ -22,6 +22,7 @@ require "syncterrifier/models/customers/disclosure"
 
 require "syncterrifier/models/money_movement/ach"
 require "syncterrifier/models/money_movement/internal_transfer"
+require "syncterrifier/models/money_movement/wire"
 
 require "syncterrifier/models/platform/webhook"
 
