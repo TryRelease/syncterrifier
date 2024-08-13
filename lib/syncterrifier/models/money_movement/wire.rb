@@ -1,3 +1,5 @@
+require_relative "../../model"
+
 class Syncterrifier::Wire < Syncterrifier::Model
   endpoint :wires
 
