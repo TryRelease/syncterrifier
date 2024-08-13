@@ -10,6 +10,7 @@ require "syncterrifier/collection"
 
 require "syncterrifier/models/accounts/account"
 require "syncterrifier/models/accounts/external_account"
+require "syncterrifier/models/accounts/product"
 require "syncterrifier/models/accounts/relationship"
 require "syncterrifier/models/accounts/statement"
 
