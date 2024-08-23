@@ -17,4 +17,5 @@ DOC
 
 class Syncterrifier::Product < Syncterrifier::Model
   endpoint 'accounts/products'
+  scope_name 'account_products'
 end
