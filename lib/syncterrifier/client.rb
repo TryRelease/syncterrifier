@@ -8,28 +8,28 @@ class Syncterrifier::Client
     @config = Syncterrifier.config
   end
 
-  def post(url, data, idempotency_key: nil, use_v1: false)
+  def post(url, data, idempotency_key: nil, use_v1: false, api_override_key: nil)
     send_request(:post, url, data, idempotency_key: idempotency_key, use_v1: use_v1)
   end
 
   def put(url, data, use_v1: false)
-    send_request(:put, url, data, use_v1: use_v1)
+    send_request(:put, url, data, use_v1: use_v1, api_override_key: nil)
   end
 
   def patch(url, data, use_v1: false)
-    send_request(:patch, url, data, use_v1: use_v1)
+    send_request(:patch, url, data, use_v1: use_v1, api_override_key: nil)
   end
 
-  def get(url, use_v1: false)
-    parse_response((use_v1 ? v1_connection : connection).get(url.to_s))
+  def get(url, use_v1: false, api_override_key: nil)
+    parse_response((use_v1 ? v1_connection(api_override_key:) : connection(api_override_key:)).get(url.to_s))
   end
 
-  def delete(url, use_v1: false)
-    parse_response((use_v1 ? v1_connection : connection).delete(url.to_s))
+  def delete(url, use_v1: false, api_override_key: nil)
+    parse_response((use_v1 ? v1_connection(api_override_key:) : connection(api_override_key:)).delete(url.to_s))
   end
 
-  def send_request(method, url, data, idempotency_key: nil, use_v1: false)
-    parse_response((use_v1 ? v1_connection : connection).send(method, url.to_s) do |req|
+  def send_request(method, url, data, idempotency_key: nil, use_v1: false, api_override_key: nil)
+    parse_response((use_v1 ? v1_connection(api_override_key:) : connection(api_override_key:)).send(method, url.to_s) do |req|
       req.body = data.to_json
       req.headers["Idempotency-Key"] = idempotency_key
     end)
@@ -37,22 +37,22 @@ class Syncterrifier::Client
 
   private
 
-  def connection
-    @connection ||= Faraday.new(
+  def connection(api_override_key: nil)
+    Faraday.new(
       url:      config.host,
       headers:  {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer #{ config.api_key }"
+        'Authorization': "Bearer #{ api_override_key || config.api_key }"
       }
     )
   end
 
-  def v1_connection
-    @v1_connection ||= Faraday.new(
+  def v1_connection(api_override_key: nil)
+    Faraday.new(
       url:      config.host.gsub("v0", "v1"),
       headers:  {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer #{ config.api_key }"
+        'Authorization': "Bearer #{ api_override_key || config.api_key }"
       }
     )
   end
@@ -74,6 +74,8 @@ class Syncterrifier::Client
     elsif resp.status == 400
       body = JSON.parse(resp.body)
       raise "#{ resp.status }: #{body['title']}\n  => Detail: #{ body['detail'] }\n  => Type: #{body['type']}\n"
+    elsif resp.status == 401
+      raise "#{ resp.status }: Unauthorized\n"
     else
       # {
       #   "code": "IDEMPOTENCY_INVALID_REUSE",
@@ -83,7 +85,10 @@ class Syncterrifier::Client
       #   "type": "https://dev.synctera.com/errors/unprocessable-entity"
       # }
 
+      puts resp
+
       body = JSON.parse(resp.body)
+
       raise "#{ resp.status }: #{body['title']} - #{body['code']}\n  => Detail: #{ body['detail'] }\n  => Type: #{body['type']}\n"
     end
   end

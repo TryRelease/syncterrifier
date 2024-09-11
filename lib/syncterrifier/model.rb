@@ -63,9 +63,14 @@ class Syncterrifier::Model
     def all(**options)
       path = options.delete(:path)
       base_url = options.delete(:base_url_override)
+      api_override_key = options.delete(:api_key)
+
+      puts '-----------'
+      puts "Overriding API key: #{api_override_key} in model all"
+
       uri = "#{base_url || url}#{path ? '/' + path : ''}#{options.keys.any? ? "?#{URI.encode_www_form(options)}" : ''}"
 
-      response = client.get(uri, use_v1: use_v1)
+      response = client.get(uri, use_v1:, api_override_key:)
       if response.keys.include?('result')
         response = response['result']
       else
@@ -90,8 +95,9 @@ class Syncterrifier::Model
       )
     end
 
-    def find(id)
-      self.new(client.get("#{ url }/#{ id }", use_v1: use_v1))
+    def find(id, **options)
+      api_override_key = options.delete(:api_key)
+      self.new(client.get("#{ url }/#{ id }", use_v1:, api_override_key:))
     end
 
     def validate_data!(data)
@@ -102,10 +108,11 @@ class Syncterrifier::Model
       # end
     end
 
-    def create(idempotency_key: nil, **data)
+    def create(idempotency_key: nil, api_key: nil, **data)
       validate_data!(data)
+      api_override_key = api_key
 
-      self.new(client.post("#{ url }", data, idempotency_key: idempotency_key, use_v1: use_v1))
+      self.new(client.post("#{ url }", data, idempotency_key: idempotency_key, use_v1:, api_override_key:))
     end
   end
 
@@ -116,14 +123,16 @@ class Syncterrifier::Model
     @path = relative_path
   end
 
-  def update(data)
+  def update(data, **options)
     validate_data!(data)
+    api_override_key = options.delete(:api_key)
 
-    client.patch((update_path || uri), data, use_v1: use_v1)
+    client.patch((update_path || uri), data, use_v1:, api_override_key:)
   end
 
-  def destroy
-    client.delete(delete_path || uri, use_v1: use_v1)
+  def destroy(**options)
+    api_override_key = options.delete(:api_key)
+    client.delete(delete_path || uri, use_v1:, api_override_key:)
   end
 
   def uri
@@ -135,11 +144,12 @@ class Syncterrifier::Model
   def delete_path; end
   def update_path; end
 
-  def fetch_association(association_name)
+  def fetch_association(association_name, **options)
     association_class = "Paylocifier::#{ association_name.to_s.singularize.capitalize }".constantize
     association_path  = "#{ uri }/#{ association_name }"
+    api_override_key  = options.delete(:api_key)
 
-    collection = client.get(association_path, use_v1: use_v1)[(scope_name || url).to_s].map do |data|
+    collection = client.get(association_path, use_v1:, api_override_key:)[(scope_name || url).to_s].map do |data|
       association_class.new(data)
     end
 

@@ -22,10 +22,11 @@ class Syncterrifier::ACH < Syncterrifier::Model
     # sec_code: String, # WEB, CCD
   )
 
-  def self.create(idempotency_key: nil, **data)
+  def self.create(idempotency_key: nil, api_key: nil, **data)
     data[:currency] = 'USD' if !data.has_key?(:currency)
+    api_override_key = api_key
 
-    super(idempotency_key: idempotency_key, **data)
+    super(idempotency_key:, api_override_key:, **data)
   end
 
   def self.simulate(account_number:, amount_cents:, dc_sign:, effective_date:)

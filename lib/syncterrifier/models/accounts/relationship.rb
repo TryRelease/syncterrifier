@@ -20,8 +20,9 @@ class Syncterrifier::AccountRelationship < Syncterrifier::Model
     super(**options.except(:account_id).merge(path: "#{account_id}/relationships"))
   end
 
-  def self.create(account_id:, idempotency_key: nil, **data)
-    self.new(client.post("accounts/#{ account_id }/relationships", data, idempotency_key: idempotency_key))
+  def self.create(account_id:, idempotency_key: nil, api_key: nil, **data)
+    api_override_key = api_key
+    self.new(client.post("accounts/#{ account_id }/relationships", data, idempotency_key:, api_override_key:))
   end
 
   def destroy

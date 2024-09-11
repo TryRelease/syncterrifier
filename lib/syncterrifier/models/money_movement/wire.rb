@@ -14,10 +14,11 @@ class Syncterrifier::Wire < Syncterrifier::Model
     recipient_message: String, # message to the recipient -- required
   )
 
-  def self.create(idempotency_key: nil, **data)
+  def self.create(idempotency_key: nil, api_key: nil, **data)
     data[:currency] = 'USD' if !data.has_key?(:currency)
+    api_override_key = api_key
 
-    super(idempotency_key: idempotency_key, **data)
+    super(idempotency_key:, api_override_key:, **data)
   end
 
   def cancel!

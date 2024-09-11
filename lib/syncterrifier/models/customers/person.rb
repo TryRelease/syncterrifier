@@ -48,11 +48,12 @@ class Syncterrifier::Person < Syncterrifier::Model
     ]
   )
 
-  def self.create(idempotency_key: nil, **data)
+  def self.create(idempotency_key: nil, api_key: nil, **data)
     data[:status] = 'ACTIVE' if !data.has_key?(:status)
     data[:is_customer] = true if !data.has_key?(:is_customer)
+    api_override_key = api_key
 
-    super(idempotency_key: idempotency_key, **data)
+    super(idempotency_key:, api_override_key:, **data)
   end
 
   def full_name

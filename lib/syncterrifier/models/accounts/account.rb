@@ -104,4 +104,29 @@ class Syncterrifier::Account < Syncterrifier::Model
   def posted_transactions(**params)
     Syncterrifier::Transaction.posted(**(params.merge(account_id: id)))
   end
+
+  def initiate_closure
+    # https://api-sandbox.synctera.com/v0/accounts/{account_id}/initiate_closure
+    # destination_id - string - external account
+
+    # payment_method
+    # value="ACH"
+    # value="EXTERNAL"
+    # value="INTERNAL_TRANSFER_TO_CUSTOMER_ACCOUNT"
+    # value="INTERNAL_TRANSFER_TO_INTERNAL_ACCOUNT"
+
+    # reason
+    # BANK_REQUEST_FRAUD
+    # BANK_REQUEST_INACTIVITY
+    # BANK_REQUEST_REDEEMED_OR_REINSTATED_REPOSSESSION
+    # BANK_REQUEST_REGULATORY_REASONS
+    # CUSTOMER_REQUEST_CREDIT_CARD_LOST_OR_STOLEN
+    # CUSTOMER_REQUEST_REFINANCE
+    # CUSTOMER_REQUEST_TRANSFER
+    # CUSTOMER_REQUEST_VOLUNTARILY_SURRENDERED
+    # PROGRAM_SHUT_DOWN_BANK
+    # PROGRAM_SHUT_DOWN_FINTECH
+
+    # reason_details
+  end
 end
