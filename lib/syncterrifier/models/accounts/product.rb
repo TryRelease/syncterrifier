@@ -18,4 +18,8 @@ DOC
 class Syncterrifier::Product < Syncterrifier::Model
   endpoint 'accounts/products'
   scope 'account_products'
+
+  def self.find(id, type, **options)
+    self.new(client.get("accounts/products?product_type=#{type}&id=#{id}&limit=100")['account_products'].first)
+  end
 end
