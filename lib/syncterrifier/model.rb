@@ -65,9 +65,6 @@ class Syncterrifier::Model
       base_url = options.delete(:base_url_override)
       api_override_key = options.delete(:api_key)
 
-      puts '-----------'
-      puts "Overriding API key: #{api_override_key} in model all"
-
       uri = "#{base_url || url}#{path ? '/' + path : ''}#{options.keys.any? ? "?#{URI.encode_www_form(options)}" : ''}"
 
       response = client.get(uri, use_v1:, api_override_key:)
@@ -124,8 +121,8 @@ class Syncterrifier::Model
   end
 
   def update(data, **options)
-    validate_data!(data)
     api_override_key = options.delete(:api_key)
+    validate_data!(data)
 
     client.patch((update_path || uri), data, use_v1:, api_override_key:)
   end

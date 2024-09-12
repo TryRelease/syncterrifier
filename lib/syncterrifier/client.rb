@@ -12,11 +12,11 @@ class Syncterrifier::Client
     send_request(:post, url, data, idempotency_key: idempotency_key, use_v1: use_v1)
   end
 
-  def put(url, data, use_v1: false)
+  def put(url, data, use_v1: false, api_override_key: nil)
     send_request(:put, url, data, use_v1: use_v1, api_override_key: nil)
   end
 
-  def patch(url, data, use_v1: false)
+  def patch(url, data, use_v1: false, api_override_key: nil)
     send_request(:patch, url, data, use_v1: use_v1, api_override_key: nil)
   end
 
