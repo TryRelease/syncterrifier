@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    syncterrifier (0.1.51)
+    syncterrifier (0.1.53)
 
 GEM
   remote: https://rubygems.org/
