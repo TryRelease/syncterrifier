@@ -24,6 +24,10 @@ class Syncterrifier::Client
     parse_response((use_v1 ? v1_connection(api_override_key:) : connection(api_override_key:)).get(url.to_s))
   end
 
+  def get_file(url, use_v1: false, api_override_key: nil)
+    (use_v1 ? v1_connection(api_override_key:) : connection(api_override_key:)).get(url.to_s).body
+  end
+
   def delete(url, use_v1: false, api_override_key: nil)
     parse_response((use_v1 ? v1_connection(api_override_key:) : connection(api_override_key:)).delete(url.to_s))
   end

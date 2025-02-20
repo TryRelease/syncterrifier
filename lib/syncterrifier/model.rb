@@ -122,7 +122,7 @@ class Syncterrifier::Model
 
   def update(data, **options)
     api_override_key = options.delete(:api_key)
-    validate_data!(data)
+    # validate_data!(data)
 
     client.patch((update_path || uri), data, use_v1:, api_override_key:)
   end
