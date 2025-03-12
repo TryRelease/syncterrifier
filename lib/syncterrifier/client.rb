@@ -77,6 +77,9 @@ class Syncterrifier::Client
       end
     elsif resp.status == 400
       body = JSON.parse(resp.body)
+
+      puts resp.body
+
       raise "#{ resp.status }: #{body['title']}\n  => Detail: #{ body['detail'] }\n  => Type: #{body['type']}\n"
     elsif resp.status == 401
       raise "#{ resp.status }: Unauthorized\n"
@@ -89,7 +92,7 @@ class Syncterrifier::Client
       #   "type": "https://dev.synctera.com/errors/unprocessable-entity"
       # }
 
-      puts resp
+      puts resp.body
 
       body = JSON.parse(resp.body)
 
